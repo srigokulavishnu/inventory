@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management</title>
+    <script>
+        // Define the inventory object
+        const inventory = {
+            products: [],
+
+            // Method to add new products
+            addProduct: function(name, price, quantity) {
+                const product = { name, price, quantity };
+                this.products.push(product);
+                this.displayProducts();
+            },
+
+            // Method to display all products with their details
+            displayProducts: function() {
+                const productList = document.getElementById("product-list");
+                productList.innerHTML = ""; // Clear previous content
+                this.products.forEach(product => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `Name: ${product.name}, Price: ${product.price}, Quantity: ${product.quantity}`;
+                    productList.appendChild(listItem);
+                });
+            }
+        };
+    </script>
+
+    <style>
+        form{
+           border: 2px black solid;
+           border-radius: 5px;
+           width:fit-content;
+           padding: 10px;
+        
+        }
+        button
+        {
+            background-color: blue;
+            color: aliceblue;
+            border-radius: 5px;
+            padding: 6px;
+        }
+        
+        .output{
+            border: 2px grey     solid;
+           border-radius: 5px;
+           width:fit-content;
+           padding: 10px;
+        }
+        .output li{
+            margin: 10px;
+        }
+        label{
+
+                    
+        }
+        input{
+            padding: 5px;
+        }
+        div{
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <h1>Inventory Management</h1>
+    <form id="product-form">
+        <div>
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" required><br>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" required><br>
+    </div>
+    <div>
+                <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" required><br>
+    </div>
+        <button type="submit">Add Product</button>
+    </form>
+    <h2>Products in Inventory:</h2>
+    <div class="output">
+    <ul id="product-list"></ul>
+</div>
+</center>
+
+    <script>
+        // Access the form
+        const productForm = document.getElementById("product-form");
+
+        // Add event listener to the form
+        productForm.addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get input values
+            const nameInput = document.getElementById("name");
+            const priceInput = document.getElementById("price");
+            const quantityInput = document.getElementById("quantity");
+
+            // Add product to inventory
+            inventory.addProduct(nameInput.value, parseFloat(priceInput.value), parseInt(quantityInput.value));
+
+            // Clear form inputs
+            nameInput.value = "";
+            priceInput.value = "";
+            quantityInput.value = "";
+        });
+    </script>
+</body>
+</html>
